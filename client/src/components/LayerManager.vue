@@ -9,6 +9,7 @@ import RectangleLayer from '../layers/AnnotationLayers/RectangleLayer';
 import PolygonLayer from '../layers/AnnotationLayers/PolygonLayer';
 import PointLayer from '../layers/AnnotationLayers/PointLayer';
 import LineLayer from '../layers/AnnotationLayers/LineLayer';
+import TailLayer from '../layers/AnnotationLayers/TailLayer';
 
 import EditAnnotationLayer, { EditAnnotationTypes } from '../layers/EditAnnotationLayer';
 import { FrameDataTrack } from '../layers/LayerTypes';
@@ -83,6 +84,11 @@ export default defineComponent({
       stateStyling,
       typeStyling: typeStylingRef,
     });
+    const tailLayer = new TailLayer({
+      annotator,
+      stateStyling,
+      typeStyling: typeStylingRef,
+    }, trackMap);
 
 
     const textLayer = new TextLayer({
@@ -189,6 +195,8 @@ export default defineComponent({
       } else {
         lineLayer.disable();
       }
+      tailLayer.updateSettings(frame);
+      tailLayer.changeData(frameData);
       pointLayer.changeData(frameData);
       if (visibleModes.includes('text')) {
         textLayer.changeData(frameData);
